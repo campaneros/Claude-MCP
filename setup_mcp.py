@@ -4,11 +4,6 @@ Registra il server MCP "docs" (rag-docs) in modo GLOBALE:
   - Claude Desktop  -> ~/Library/Application Support/Claude/claude_desktop_config.json
   - Claude Code     -> ~/.claude.json  (scope utente: vale in qualsiasi cartella)
 
-Fa il merge senza distruggere le configurazioni esistenti e crea un backup .bak
-di ogni file toccato. Idempotente: rilanciarlo non duplica nulla.
-
-Uso:
-    ~/Documents/rag-docs/.venv/bin/python ~/Documents/rag-docs/setup_mcp.py
 """
 
 import json
