@@ -896,10 +896,17 @@ def process_pdf(pdf_path: Path, use_marker: bool) -> dict:
     lines, sections = parse_outline(markdown)
 
     if not "".join(lines).strip():
-        raise ValueError(
-            "nessun testo estratto: probabilmente e' una scansione "
-            "(servirebbe un OCR, es. ocrmypdf)"
+        # PDF solo grafico (es. layout PCB): niente testo da indicizzare, ma
+        # resta consultabile come immagine con docs_read_figure.
+        with pymupdf.open(str(pdf_path)) as doc:
+            n_pages = doc.page_count
+        markdown = "\n".join(
+            f"{PAGE_MARK.format(n=i)}\n# {pdf_path.stem} (p. {i})\n\n"
+            "Pagina solo grafica: nessun testo estraibile. "
+            "Usa docs_read_figure con il numero di pagina per vederla."
+            for i in range(1, n_pages + 1)
         )
+        lines, sections = parse_outline(markdown)
 
     stem = pdf_path.stem
     MD_DIR.mkdir(parents=True, exist_ok=True)
