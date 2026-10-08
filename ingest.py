@@ -989,7 +989,7 @@ def main() -> int:
 
     DOCS_DIR.mkdir(parents=True, exist_ok=True)
     SLIDES_DIR.mkdir(parents=True, exist_ok=True)
-    doc_files = sorted(DOCS_DIR.glob("*.pdf"))
+    doc_files = sorted(DOCS_DIR.rglob("*.pdf"))
     slide_files = sorted(SLIDES_DIR.glob("*.pdf"))
     pdf_files = doc_files + slide_files
     is_slides = {p.name for p in slide_files}
